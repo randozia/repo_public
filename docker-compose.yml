@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  apache:
+    image: httpd:2.4
+    container_name: apache_server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - php
+
+  php:
+    image: php:8.2-fpm
+    container_name: php_fpm
+    volumes:
+      - ./app:/var/www/html
